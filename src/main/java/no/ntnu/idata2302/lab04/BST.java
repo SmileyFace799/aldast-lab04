@@ -146,20 +146,20 @@ public class BST {
         throw new RuntimeException("Not yet implemented!");
     }
 
-}
+    private static class NoSuchValue extends RuntimeException {
 
-class NoSuchValue extends RuntimeException {
+        private int value;
 
-    private int value;
-
-    public NoSuchValue(int givenValue) {
-        super();
-        this.value = givenValue;
+        public NoSuchValue(int givenValue) {
+            super();
+            this.value = givenValue;
+        }
     }
-}
 
-class SuccessorNotFound extends RuntimeException {
-}
+    private static class SuccessorNotFound extends RuntimeException {
+    }
 
-class PredecessorNotFound extends RuntimeException {
+    private static class PredecessorNotFound extends RuntimeException {
+    }
+
 }
