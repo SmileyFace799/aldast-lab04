@@ -1,12 +1,18 @@
 package no.ntnu.idata2302.lab04;
 
+/**
+ * The Real BTS.
+ */
 public class BST {
 
     public static BST fromValues(int... values) {
-        if (values.length < 1)
-            throw new IllegalArgumentException("A binary search tree must have at least one value");
-        if (values.length == 1)
+        if (values.length < 1) {
+            throw new IllegalArgumentException(
+                  "A binary search tree must have at least one value");
+        }
+        if (values.length == 1) {
             return new BST(values[0]);
+        }
         var tree = new BST(values[0]);
         for (int i = 1; i < values.length; i++) {
             tree.insert(values[i]);
@@ -23,16 +29,36 @@ public class BST {
     }
 
     public BST insert(int givenValue) {
-        // TODO: Implement this operation
-        throw new RuntimeException("Not yet implemented");
+        if (givenValue < value) {
+            if (hasLeft()) {
+                left.insert(givenValue);
+            } else {
+                left = new BST(givenValue);
+            }
+        } else if (givenValue > value) {
+            if (hasRight()) {
+                right.insert(givenValue);
+            } else {
+                right = new BST(givenValue);
+            }
+        }
+        return this;
     }
 
     /**
-     * @return the number of items in this tree
+     * Returns the number of items in a Binary Search Tree.
+     *
+     * @return the number of items in this tree.
      */
     public int size() {
-        // TODO: implement this operation
-        throw new RuntimeException("Not yet implemented!");
+        int size = 1;
+        if (hasLeft()) {
+            size += left.size();
+        }
+        if (hasRight()) {
+            size += right.size();
+        }
+        return size;
     }
 
     private boolean hasLeft() {
