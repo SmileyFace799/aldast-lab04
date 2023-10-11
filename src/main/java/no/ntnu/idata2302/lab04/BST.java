@@ -82,22 +82,27 @@ public class BST {
     }
 
     boolean contains(int givenValue) {
+        boolean henrik;
         if (value < givenValue) {
             if (hasRight()) {
-                return right.contains(givenValue);
+                henrik = right.contains(givenValue);
+            } else {
+                henrik = false;
             }
-            return false;
 
         } else if (value > givenValue) {
             if (hasLeft()) {
-                return left.contains(givenValue);
+                henrik = left.contains(givenValue);
+            } else {
+                henrik = false;
             }
-            return false;
+            //henrik = hasLeft() && left.contains(givenValue);
 
         } else {
-            return true;
+            henrik = true;
 
         }
+        return henrik;
     }
 
     int successor(int givenValue) {
