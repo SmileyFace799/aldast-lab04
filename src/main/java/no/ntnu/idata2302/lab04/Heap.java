@@ -12,21 +12,59 @@ public class Heap {
         return heap;
     }
 
-    private ArrayList<Integer> array;
+    private final ArrayList<Integer> array;
 
     public Heap() {
-        array = new ArrayList<Integer>();
+        array = new ArrayList<>();
         array.add(0);
     }
 
-    public void insert(Integer k) {
-        // TODO: Implement this operation
-        throw new RuntimeException("Not yet implemented");
+    private void topHeapify(int size, int keyIndex) {
+        int smallestIndex = keyIndex;
+        int leftIndex = leftChildOf(keyIndex);
+        int rightIndex = rightChildOf(keyIndex);
+
+        if (leftIndex < size && array.get(leftIndex) < array.get(smallestIndex)) {
+            smallestIndex = leftIndex;
+        }
+        if (rightIndex < size && array.get(rightIndex) < array.get(smallestIndex)) {
+            smallestIndex = rightIndex;
+        }
+
+        if (smallestIndex != keyIndex) {
+            swap(smallestIndex, keyIndex);
+            topHeapify(size, smallestIndex);
+        }
+    }
+
+    private void topHeapify() {
+        topHeapify(array.size(), 1);
+    }
+
+    private void bottomHeapify(int keyIndex) {
+        if (keyIndex > 1) {
+            int parentIndex = parentOf(keyIndex);
+            if (array.get(keyIndex) < array.get(parentIndex)) {
+                swap(keyIndex, parentIndex);
+                bottomHeapify(parentIndex);
+            }
+        }
+    }
+
+    private void bottomHeapify() {
+        bottomHeapify(array.size() - 1);
+    }
+
+    public void insert(int k) {
+        array.add(k);
+        bottomHeapify();
     }
 
     public int takeMinimum() {
-        // TODO: Implement this operation
-        throw new RuntimeException("Not yet implemented");
+        int minimum = array.get(1);
+        array.set(1, array.get(array.size() - 1));
+        topHeapify();
+        return minimum;
     }
 
     public void decreaseKey(int i, int k) {
