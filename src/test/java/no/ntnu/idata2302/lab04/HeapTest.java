@@ -45,4 +45,13 @@ public class HeapTest {
         assertEquals(9, (int) minimum);
     }
 
+    @Test
+    public void decreaseKey() {
+        var heap = Heap.fromValues(10, 20, 5, 23, 9);
+
+        heap.decreaseKey(3, 2);
+
+        var minimum = heap.takeMinimum();
+        assertEquals(2, (int) minimum);
+    }
 }
