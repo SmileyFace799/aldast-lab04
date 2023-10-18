@@ -185,8 +185,24 @@ public class BST {
     }
 
     public String format() {
-        // TODO: Implement this operation
-        throw new RuntimeException("Not yet implemented!");
+        StringBuilder result = new StringBuilder();
+        formatStringBuilder(this, result);
+        if (result.length () > 0) {
+            result.setLength(result.length () - 2);
+        }
+        return result.toString();
+    }
+
+    private void formatStringBuilder(BST node, StringBuilder builder) {
+        if (node == null) {
+            return;
+        }
+        // Traverse left subtree
+        formatStringBuilder(node.left, builder);
+        // Visit the current node
+        builder.append(node.value).append(", ");
+        // Traverse right subtree
+        formatStringBuilder(node.right, builder);
     }
 
     private static class NoSuchValue extends RuntimeException {
@@ -197,6 +213,26 @@ public class BST {
             super();
             this.value = givenValue;
         }
+    }
+
+    public String formatUnreadable() {
+        if (this == null) {
+            return "";
+        }
+
+        //If right is not null, assign value of right.format() to rightStr,
+        //otherwise assign an empty string ("") to rightStr.
+        String leftStr = (left != null) ? left.format() : "";
+        String rightStr = (right != null) ? right.format() : "";
+
+        if (!leftStr.isEmpty()) {
+            leftStr += ", ";
+        }
+        if (!rightStr.isEmpty()) {
+            rightStr = ", " + rightStr;
+        }
+
+        return leftStr + value + rightStr;
     }
 
     private static class SuccessorNotFound extends RuntimeException {
