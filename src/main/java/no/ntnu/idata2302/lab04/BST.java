@@ -204,13 +204,14 @@ public class BST {
      * Helper method for format().
      * Recursively traverses the tree and adds values to the StringBuilder.
      * Both left and right subtree are traversed.
-     * 
+     *
      * Appends value of current node to the StringBuilder, with a comma and space (", ").
      * Left first, current then right subtree.
      * Results in all items in tree listed in ascending order, while also being separated by comma.
      *
-     * @param node
-     * @param builder
+     * @param node the current node being processed.
+     *
+     * @param builder the result of the builder.
      */
     private void formatStringBuilder(BST node, StringBuilder builder) {
         if (node == null) {
@@ -238,6 +239,8 @@ public class BST {
         if (this == null) {
             return "";
         }
+
+        //result = (condition) ? value_if_true : value_if_false;
 
         //If right is not null, assign value of right.format() to rightStr,
         //otherwise assign an empty string ("") to rightStr.
