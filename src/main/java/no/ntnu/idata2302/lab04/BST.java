@@ -184,15 +184,34 @@ public class BST {
         }
     }
 
+    /**
+     * Initializes the StringBuilder,
+     * calls helper method with current node and StringBuilder object.
+     * If values are added to the StringBuilder, it removes the trailing comma.
+     *
+     * @return String representation of the tree.
+     */
     public String format() {
         StringBuilder result = new StringBuilder();
         formatStringBuilder(this, result);
-        if (result.length () > 0) {
-            result.setLength(result.length () - 2);
+        if (result.length() > 0) {
+            result.setLength(result.length() - 2);
         }
         return result.toString();
     }
 
+    /**
+     * Helper method for format().
+     * Recursively traverses the tree and adds values to the StringBuilder.
+     * Both left and right subtree are traversed.
+     * 
+     * Appends value of current node to the StringBuilder, with a comma and space (", ").
+     * Left first, current then right subtree.
+     * Results in all items in tree listed in ascending order, while also being separated by comma.
+     *
+     * @param node
+     * @param builder
+     */
     private void formatStringBuilder(BST node, StringBuilder builder) {
         if (node == null) {
             return;
