@@ -41,6 +41,8 @@ public class BST {
             } else {
                 right = new BST(givenValue);
             }
+        } else {
+            throw new IllegalArgumentException("Value already exists in tree");
         }
         return this;
     }
@@ -51,20 +53,30 @@ public class BST {
      * @return the number of items in this tree.
      */
     public int size() {
-        int size = 1;
+        int size = 1; //counts the current node.
         if (hasLeft()) {
-            size += left.size();
+            size += left.size(); //recursive call to itself on left child.
         }
         if (hasRight()) {
-            size += right.size();
+            size += right.size(); //recursive call to itself on right child.
         }
         return size;
     }
 
+    /**
+     * Checks to see if a left child exists.
+     *
+     * @return true of exists, false if not.
+     */
     private boolean hasLeft() {
         return left != null;
     }
 
+    /**
+     * Checks to see if a right child exists.
+     *
+     * @return true of exists, false if not.
+     */
     private boolean hasRight() {
         return right != null;
     }
