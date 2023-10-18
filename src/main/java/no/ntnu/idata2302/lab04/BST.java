@@ -69,15 +69,21 @@ public class BST {
         return right != null;
     }
 
-    int minimum() {
-        // TODO: Implement this operation
-        throw new RuntimeException("Not yet implemented!");
-
+    public int minimum() {
+        BST currentMin = this;
+        while (currentMin.hasLeft()) {
+            currentMin = currentMin.left;
+        }
+        return currentMin.value;
     }
 
-    int maximum() {
-        // TODO: Implement this operation
-        throw new RuntimeException("Not yet implemented!");
+    public int maximum() {
+
+        BST currentMax = this;
+        while (currentMax.hasRight()) {
+            currentMax = currentMax.right;
+        }
+        return currentMax.value;
 
     }
 
