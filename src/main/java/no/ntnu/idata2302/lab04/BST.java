@@ -41,6 +41,8 @@ public class BST {
             } else {
                 right = new BST(givenValue);
             }
+        } else {
+            throw new IllegalArgumentException("Value already exists in tree");
         }
         return this;
     }
@@ -51,20 +53,30 @@ public class BST {
      * @return the number of items in this tree.
      */
     public int size() {
-        int size = 1;
+        int size = 1; //counts the current node.
         if (hasLeft()) {
-            size += left.size();
+            size += left.size(); //recursive call to itself on left child.
         }
         if (hasRight()) {
-            size += right.size();
+            size += right.size(); //recursive call to itself on right child.
         }
         return size;
     }
 
+    /**
+     * Checks to see if a left child exists.
+     *
+     * @return true of exists, false if not.
+     */
     private boolean hasLeft() {
         return left != null;
     }
 
+    /**
+     * Checks to see if a right child exists.
+     *
+     * @return true of exists, false if not.
+     */
     private boolean hasRight() {
         return right != null;
     }
@@ -178,9 +190,44 @@ public class BST {
         }
     }
 
+    /**
+     * Initializes the StringBuilder,
+     * calls helper method with current node and StringBuilder object.
+     * If values are added to the StringBuilder, it removes the trailing comma.
+     *
+     * @return String representation of the tree.
+     */
     public String format() {
-        // TODO: Implement this operation
-        throw new RuntimeException("Not yet implemented!");
+        StringBuilder result = new StringBuilder();
+        formatStringBuilder(this, result);
+        if (result.length() > 0) {
+            result.setLength(result.length() - 2);
+        }
+        return result.toString();
+    }
+
+    /**
+     * Helper method for format().
+     * Recursively traverses the tree and adds values to the StringBuilder.
+     * Both left and right subtree are traversed.
+     * 
+     * Appends value of current node to the StringBuilder, with a comma and space (", ").
+     * Left first, current then right subtree.
+     * Results in all items in tree listed in ascending order, while also being separated by comma.
+     *
+     * @param node
+     * @param builder
+     */
+    private void formatStringBuilder(BST node, StringBuilder builder) {
+        if (node == null) {
+            return;
+        }
+        // Traverse left subtree
+        formatStringBuilder(node.left, builder);
+        // Visit the current node
+        builder.append(node.value).append(", ");
+        // Traverse right subtree
+        formatStringBuilder(node.right, builder);
     }
 
     private static class NoSuchValue extends RuntimeException {
@@ -191,6 +238,26 @@ public class BST {
             super();
             this.value = givenValue;
         }
+    }
+
+    public String formatUnreadable() {
+        if (this == null) {
+            return "";
+        }
+
+        //If right is not null, assign value of right.format() to rightStr,
+        //otherwise assign an empty string ("") to rightStr.
+        String leftStr = (left != null) ? left.format() : "";
+        String rightStr = (right != null) ? right.format() : "";
+
+        if (!leftStr.isEmpty()) {
+            leftStr += ", ";
+        }
+        if (!rightStr.isEmpty()) {
+            rightStr = ", " + rightStr;
+        }
+
+        return leftStr + value + rightStr;
     }
 
     private static class SuccessorNotFound extends RuntimeException {
